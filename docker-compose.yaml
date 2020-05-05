@@ -1,0 +1,23 @@
+version: '3.5'
+
+networks:
+  minio:
+    name: minio
+    driver: bridge
+
+services:
+  minio:
+    image: minio/minio
+    container_name: minio.local
+    restart: always
+    command:
+      - server
+      - /mnt/data/infra/minio/data:/data
+    environment: {}
+    networks:
+      - minio
+    ports:
+      - 9000:9000
+    expose:
+      - "9000"
+
