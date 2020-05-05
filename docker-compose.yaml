@@ -12,8 +12,10 @@ services:
     restart: always
     command:
       - server
-      - /mnt/data/infra/minio/data:/data
+      - /data
     environment: {}
+    volumes:
+      - /mnt/data/infra/minio/data:/data
     networks:
       - minio
     ports:
