@@ -7,15 +7,19 @@ networks:
 
 services:
   minio:
-    image: minio/minio
-    container_name: minio.local
+    image: minio/minio:RELEASE.2020-05-01T22-19-14Z
+    container_name: minio.infra.local
     restart: always
     command:
       - server
-      - /data
-    environment: {}
+      - --certs-dir=/minio/certs
+      - /minio/data
+    environment:
+      - MINIO_ACCESS_KEY=${MINIO_ACCESS_KEY}
+      - MINIO_SECRET_KEY=${MINIO_SECRET_KEY}
     volumes:
-      - /mnt/data/infra/minio/data:/data
+      - /mnt/data/infra/minio/data:/minio/data
+      - /mnt/data/infra/minio/certs:/minio/certs
     networks:
       - minio
     ports:
